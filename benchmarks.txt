@@ -1,0 +1,49 @@
+Problem to solve :
+Import from csv (or other format) 2 rows and 100million int numbers , create 2 int arrays X , Y of dimension 1x100millions and calculate Z array = X + Y^2 +2. Calculate the sum of first 100 elements of Z and print total and time spent in computation.
+Best result : Using standard python with npy file format and numpy library for computation had best result of 1 second.
+Python version : 3.11.3
+Benchmarks
+
+Data:
+gcasale@deb-hp-8300:~/benchmark/high$ ls -lh *data*
+-rw-r--r-- 1 gcasale gcasale 555M 18 mag 16.24 data.csv
+-rw-r--r-- 1 gcasale gcasale 1,5G 20 mag 12.52 data.npy
+-rw-r--r-- 1 gcasale gcasale 1,5G 20 mag 13.02 data.h5
+
+
+## C language
+gcasale@deb-hp-8300:~/benchmark/high$ ./benchc 
+Total is 293790 and execution time is 6.716999 seconds
+
+## GO language
+gcasale@deb-hp-8300:~/benchmark/high$ go run go_bench.go 
+Sum of the first 100 elements of Z: 293790
+Total time spent: 11.067508777
+
+#Python language Codon Compiler
+gcasale@deb-hp-8300:~/benchmark/high$ codon run -release bench_cod.py
+Total is 293790 and execution time is 12.9663 seconds 
+
+# C++ language
+gcasale@deb-hp-8300:~/benchmark/high$ ./benchcpp
+Total is 293790 and execution time is 20.4499 seconds
+
+#Python Language - Python interpreter - npy data not csv - numpy array processing
+gcasale@deb-hp-8300:~/benchmark/high$ python311 np_bench_npdata.py
+Total is 281573 and execution time is 1.0549829006195068 seconds 
+
+# Python language and interpreter
+gcasale@deb-hp-8300:~/benchmark/high$ python311 test2.py 
+Total is 293790 and execution time is 71.36442542076111 seconds 
+
+# Python Language - Python interpreter - hdf5 data not csv - numpy array processing
+gcasale@deb-hp-8300:~/benchmark/high$ python311 np_bench_h5data.py
+Total is 329340 and execution time is 1.449300765991211 seconds 
+
+#Python Language - Pypy interpreter - npy data not csv - numpy array processing
+gcasale@deb-hp-8300:~/benchmark/high$ pypy np_bench_npdata.py
+Total is 281573 and execution time is 1.1818206310272217 seconds
+
+# Python language and Pypy interpreter
+gcasale@deb-hp-8300:~/benchmark/high$ pypy test2.py
+Total is 293790 and execution time is 37.17666721343994 seconds
